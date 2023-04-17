@@ -6,7 +6,6 @@ using namespace std;
 
 // define constructor 
 Fraction::Fraction(int nrm, int dnm): numerator(nrm), denominator(dnm){}
-Fraction::Fraction(float nrm, float dnm): numerator(1), denominator(1){}
 
 //overlaoding operators
 // sums two fractions 
@@ -30,8 +29,13 @@ Fraction operator+ (const float dec, const Fraction& frac)
     return Fraction(1,1);
 }
 
+Fraction ariel::operator + (const float dec, const Fraction& frac)
+{
+    return Fraction(1,1);
+}
+
 // substract two fractions 
-Fraction Fraction::operator + (const Fraction& other)
+Fraction Fraction::operator - (const Fraction& other)
 {
     return Fraction(1,1);
 }
@@ -41,7 +45,7 @@ Fraction Fraction::operator - (const float dec)
     return Fraction(1,1);
 }
 
-Fraction operator - (const float dec, const Fraction& frac)
+Fraction ariel::operator - (const float dec, const Fraction& frac)
 {
     return Fraction(1,1);
 }
@@ -57,7 +61,7 @@ Fraction Fraction::operator * (const float dec)
     return Fraction(1,1);
 }
 
-Fraction operator * (const float dec, const Fraction& frac)
+Fraction ariel::operator * (const float dec, const Fraction& frac)
 {
     return Fraction(1,1);
 }
@@ -73,7 +77,7 @@ Fraction Fraction::operator / (const float dec)
     return Fraction(1,1);
 }
 
-Fraction operator / (const float dec, const Fraction& frac)
+Fraction ariel::operator / (const float dec, const Fraction& frac)
 {
     return Fraction(1,1);
 }
@@ -89,7 +93,7 @@ bool Fraction::operator == (const float dec)
     return true;
 }
 
-bool operator == (const float dec, const Fraction& frac)
+bool ariel::operator == (const float dec, const Fraction& frac)
 {
     return true; 
 }
@@ -105,7 +109,7 @@ bool Fraction::operator < (const float dec)
     return true;
 }
 
-bool operator < (const float dec, const Fraction& frac)
+bool ariel::operator < (const float dec, const Fraction& frac)
 {
     return true; 
 }
@@ -121,7 +125,7 @@ bool Fraction::operator > (const float dec)
     return true;
 }
 
-bool operator > (const float dec, const Fraction& frac)
+bool ariel::operator > (const float dec, const Fraction& frac)
 {
     return true; 
 }
@@ -137,7 +141,7 @@ bool Fraction::operator <= (const float dec)
     return true;
 }
 
-bool operator <= (const float dec, const Fraction& frac)
+bool ariel::operator <= (const float dec, const Fraction& frac)
 {
     return true; 
 }
@@ -153,7 +157,7 @@ bool Fraction::operator >= (const float dec)
     return true;
 }
 
-bool operator >= (const float dec, const Fraction& frac)
+bool ariel::operator >= (const float dec, const Fraction& frac)
 {
     return true; 
 }
