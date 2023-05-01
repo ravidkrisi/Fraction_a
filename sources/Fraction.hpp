@@ -15,6 +15,7 @@ namespace ariel
         
         public:
             Fraction(int nrm, int dnm); // constructor
+            Fraction(float num);
 
 
             // declare and define getters
@@ -28,58 +29,61 @@ namespace ariel
             {
                 return this->denominator;
             }
+            // this fucntion reduce the fraction 
+            void reduced()
+            {
+                int gcd = std::gcd(this->numerator, this->denominator);
+                this->numerator = this->numerator / gcd; 
+                this->denominator = this->denominator / gcd; 
+            }
+            // this function increment the fraction 
+            void increment()
+            {
+                this->numerator = this->numerator + this->denominator;
+                this->reduced();
+            }
 
-            // functions 
-            // Fraction floatToFraction (float flt)
-            // {
-            //     // int whole = flt/1; // get the whole part of float 
-            //     // float twoDigit = ((flt-whole)*100)/1; // get the 2 digits after to dot
+            void decrement()
+            {
+                this->numerator = this->numerator - this->denominator; 
+                this->reduced();
+            }
+
+
+            //functions 
+            // this function gets float number and convert it to Fraction and return fraction 
+            Fraction floatToFraction (float flt)
+            {
+                int whole = flt/1; // get the whole part of float 
+                float twoDigit = ((flt-whole)*100)/1; // get the 2 digits after to dot
                 
-            //     // int nrm = whole*100 + twoDigit;
-            //     // int dnm = 100;
-            //     // int gcd = std::gcd(nrm, dnm); // calc the gcd of nrm and dnm 
-            //     // return Fraction((nrm/gcd), (dnm/gcd));
-            // }
+                int nrm = whole*100 + twoDigit;
+                int dnm = 100;
+                int gcd = std::gcd(nrm, dnm); // calc the gcd of nrm and dnm 
+                return Fraction((nrm/gcd), (dnm/gcd));
+            }
             
             // declare overloading opertators 
             // aritmectic 
             //+
             Fraction operator + (const Fraction& other); // overloading + operator
-            Fraction operator + (const float dec); // overloading + operator
-            friend Fraction operator + (const float dec, const Fraction& frac); // overloading + operator
             // -
             Fraction operator - (const Fraction& other); // overloading - operator
-            Fraction operator - (const float dec); // overloading - operator
-            friend Fraction operator - (const float dec, const Fraction& frac); // overloading - operator
             // *
             Fraction operator * (const Fraction& other); // overloading * operator
-            Fraction operator * (const float dec); // overloading * operator
-            friend Fraction operator * (const float dec, const Fraction& frac); // overloading * operator
             // /
             Fraction operator / (const Fraction& other); // overloading / operator
-            Fraction operator / (const float dec); // overloading / operator
-            friend Fraction operator / (const float dec, const Fraction& frac); // overloading / operator
             //comprasion 
             // ==
             bool operator == (const Fraction& other); // overloading == operator
-            bool operator == (const float dec); // overloading == operator
-            friend bool operator == (const float dec, const Fraction& frac); // overloading == operator
             // <
             bool operator < (const Fraction& other); // overloading < operator
-            bool operator < (const float dec); // overloading < operator
-            friend bool operator < (const float dec, const Fraction& frac); // overloading < operator
             // <=
             bool operator <= (const Fraction& other); // overloading <= operator
-            bool operator <= (const float dec); // overloading <= operator
-            friend bool operator <= (const float dec, const Fraction& frac); // overloading <= operator
             // >
             bool operator > (const Fraction& other); // overloading > operator
-            bool operator > (const float dec); // overloading > operator
-            friend bool operator > (const float dec, const Fraction& frac); // overloading > operator
             // >=
             bool operator >= (const Fraction& other); // overloading >= operator
-            bool operator >= (const float dec); // overloading >= operator
-            friend bool operator >= (const float dec, const Fraction& frac); // overloading >= operator
             // increment decrement 
             Fraction& operator ++(); // overloading pre ++ operator
             Fraction operator ++(int); // overloading post ++ operator

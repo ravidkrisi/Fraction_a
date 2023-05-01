@@ -4,184 +4,126 @@
 using namespace ariel;
 using namespace std;
 
-// define constructor 
-Fraction::Fraction(int nrm, int dnm): numerator(nrm), denominator(dnm){}
+// define constructor loaded with integers 
+Fraction::Fraction(int nrm, int dnm): numerator(nrm), denominator(dnm){this->reduced();}
+
+// define constructor loaded with float num
+Fraction::Fraction(float num)
+{
+    int nrm = (num*1000)/1;
+    int dnm = 1000;
+    int gcd = std::gcd(nrm, dnm);
+
+    this->numerator = nrm/gcd;
+    this->denominator = dnm/gcd;
+}
 
 //overlaoding operators
 // sums two fractions 
 Fraction Fraction::operator + (const Fraction& other)
 {
-    return Fraction(1,1);
-    // int nrm = (this->getNumerator()*other.getDenominator()) + (other.getNumerator()*this->getDenominator()); // calc new fraction nrm
-    // int dnm = this->getDenominator()*other.getDenominator(); // calc new fraction dnm
-    // int gcd = std::gcd(nrm, dnm); // calc the gcd of nrm and dnm 
+    int nrm = (this->getNumerator()*other.getDenominator()) + (other.getNumerator()*this->getDenominator()); // calc new fraction nrm
+    int dnm = this->getDenominator()*other.getDenominator(); // calc new fraction dnm
+    int gcd = std::gcd(nrm, dnm); // calc the gcd of nrm and dnm 
 
-    // return Fraction((nrm/gcd), (dnm/gcd)); 
-}
-
-Fraction Fraction::operator + (const float dec)
-{
-    return Fraction(1,1);
-}
-
-Fraction operator+ (const float dec, const Fraction& frac)
-{
-    return Fraction(1,1);
-}
-
-Fraction ariel::operator + (const float dec, const Fraction& frac)
-{
-    return Fraction(1,1);
+    return Fraction((nrm/gcd), (dnm/gcd)); 
 }
 
 // substract two fractions 
 Fraction Fraction::operator - (const Fraction& other)
 {
-    return Fraction(1,1);
-}
+    int nrm = (this->getNumerator()*other.getDenominator()) - (other.getNumerator()*this->getDenominator()); // calc new fraction nrm
+    int dnm = this->getDenominator()*other.getDenominator(); // calc new fraction dnm
+    int gcd = std::gcd(nrm, dnm); // calc the gcd of nrm and dnm 
 
-Fraction Fraction::operator - (const float dec)
-{
-    return Fraction(1,1);
-}
-
-Fraction ariel::operator - (const float dec, const Fraction& frac)
-{
-    return Fraction(1,1);
+    return Fraction((nrm/gcd), (dnm/gcd)); 
 }
 
 // multiply two fractions 
 Fraction Fraction::operator * (const Fraction& other)
 {
-    return Fraction(1,1);
-}
+    int nrm = this->getNumerator() * other.getNumerator();
+    int dnm = this->getDenominator() * other.getDenominator();
 
-Fraction Fraction::operator * (const float dec)
-{
-    return Fraction(1,1);
-}
+    int gcd = std::gcd(nrm, dnm);
 
-Fraction ariel::operator * (const float dec, const Fraction& frac)
-{
-    return Fraction(1,1);
+    return Fraction((nrm/gcd), (dnm/gcd));
 }
 
 // divide two fractions 
 Fraction Fraction::operator / (const Fraction& other)
 {
-    return Fraction(1,1);
-}
-
-Fraction Fraction::operator / (const float dec)
-{
-    return Fraction(1,1);
-}
-
-Fraction ariel::operator / (const float dec, const Fraction& frac)
-{
-    return Fraction(1,1);
+    return *this * Fraction(other.getDenominator(), other.getNumerator());
 }
 
 // compare two fractions  
 bool Fraction::operator == (const Fraction& other)
 {
-    return true;
-}
-
-bool Fraction::operator == (const float dec)
-{
-    return true;
-}
-
-bool ariel::operator == (const float dec, const Fraction& frac)
-{
-    return true; 
+    int left = this->getNumerator() * other.getDenominator();
+    int right = this->getDenominator() * other.getNumerator();
+    if(left == right) return true;
+    return false;
 }
 
 // compare two fractions  
 bool Fraction::operator < (const Fraction& other)
 {
-    return true;
-}
-
-bool Fraction::operator < (const float dec)
-{
-    return true;
-}
-
-bool ariel::operator < (const float dec, const Fraction& frac)
-{
-    return true; 
+    int left = this->getNumerator() * other.getDenominator();
+    int right = this->getDenominator() * other.getNumerator();
+    if(left > right) return true;
+    return false;
 }
 
 // compare two fractions  
 bool Fraction::operator > (const Fraction& other)
 {
-    return true;
-}
-
-bool Fraction::operator > (const float dec)
-{
-    return true;
-}
-
-bool ariel::operator > (const float dec, const Fraction& frac)
-{
-    return true; 
+    int left = this->getNumerator() * other.getDenominator();
+    int right = this->getDenominator() * other.getNumerator();
+    if(left < right) return true;
+    return false;
 }
 
 // compare two fractions  
 bool Fraction::operator <= (const Fraction& other)
 {
-    return true;
-}
-
-bool Fraction::operator <= (const float dec)
-{
-    return true;
-}
-
-bool ariel::operator <= (const float dec, const Fraction& frac)
-{
-    return true; 
+    int left = this->getNumerator() * other.getDenominator();
+    int right = this->getDenominator() * other.getNumerator();
+    if(left <= right) return true;
+    return false;
 }
 
 // compare two fractions  
 bool Fraction::operator >= (const Fraction& other)
 {
-    return true;
-}
-
-bool Fraction::operator >= (const float dec)
-{
-    return true;
-}
-
-bool ariel::operator >= (const float dec, const Fraction& frac)
-{
-    return true; 
+    int left = this->getNumerator() * other.getDenominator();
+    int right = this->getDenominator() * other.getNumerator();
+    if(left >= right) return true;
+    return false;
 }
 
 // increment fraction 
 Fraction& Fraction::operator++()
 {
+    this->increment();
     return *this;
 }
 
 Fraction Fraction::operator++(int)
 {
-    return Fraction(1,1);
+
+    return Fraction(this->getNumerator()+this->getDenominator(),this->getDenominator());
 }
 
 // decrement fraction 
 Fraction& Fraction::operator--()
 {
+    this->decrement();
     return *this;
 }
 
 Fraction Fraction::operator--(int)
 {
-    return Fraction(1,1);
+    return Fraction(this->getNumerator()-this->getDenominator(),this->getDenominator());
 }
 
 
